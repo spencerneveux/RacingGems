@@ -1,7 +1,7 @@
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class Node {
+public class Node implements Comparable<Node>{
     private int value;
     private int maxValue;
     private Point2D.Double location;
@@ -37,10 +37,6 @@ public class Node {
         return false;
     }
 
-    public int maxValue() {
-
-    }
-
     public int getValue() {
         return value;
     }
@@ -53,10 +49,6 @@ public class Node {
         this.maxValue = maxValue;
     }
 
-    public Point2D.Double getLocation() {
-        return location;
-    }
-
     public ArrayList<Node> getNodeList() {
         return children;
     }
@@ -65,8 +57,17 @@ public class Node {
         children.add(node);
     }
 
-    public String toString() {
-        return ("X: " + location.x + " Y: " + location.y + " Value: " + value);
+    @Override
+    public String toString() { return ("X: " + location.x + " Y: " + location.y + " Value: " + value);}
+
+    @Override
+    public int compareTo(Node node) {
+        if (this.location.y > node.location.y)
+            return 1;
+        if (this.location.y < node.location.y)
+            return -1;
+        return 0;
+
     }
 
 }

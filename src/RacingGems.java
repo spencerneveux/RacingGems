@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class RacingGems {
     private File file;
-    private ArrayList<Node> gems;
-    private int numGems;
+    private ArrayList<Node> nodes;
+    private int numNodes;
     private double speedRatio;
     private double widthTrack;
     private double heightTrack;
@@ -17,7 +17,7 @@ public class RacingGems {
      */
     public RacingGems(String path) {
         this.file = new File(path);
-        gems = new ArrayList<>();
+        nodes = new ArrayList<>();
         read();
     }
 
@@ -28,7 +28,7 @@ public class RacingGems {
         try(Scanner input = new Scanner(file)) {
             // Fill in first line stats
             input.useDelimiter("\\s|,");
-            numGems = input.nextInt();
+            numNodes = input.nextInt();
             speedRatio = input.nextDouble();
             widthTrack = input.nextDouble();
             heightTrack = input.nextDouble();
@@ -39,10 +39,10 @@ public class RacingGems {
                 double gemYPosition = input.nextDouble();
                 int value = input.nextInt();
                 Node gem = new Node(gemXPosition, gemYPosition, value);
-                gems.add(gem);
+                nodes.add(gem);
             }
 
-            for (Node node: gems) {
+            for (Node node: nodes) {
                 System.out.println(node);
             }
 
@@ -55,17 +55,27 @@ public class RacingGems {
      * Method to add all paths to the nodeList
      */
     public void createPath() {
-        if (gems.size() != 0) {
-            //Run through all the gems and see which ones can be grabbed
-            for (int i = 0; i < gems.size(); i++) {
-                for (int j = i+1; j < gems.size(); j++) {
-                    // If you can grab the next gem from the current position
-                    if (gems.get(i).canGrab(gems.get(j), speedRatio))
-                        gems.get(i).addNode(gems.get(j));
-                }
+        //Create all possible paths from each node
+        for (int i = 0; i < nodes.size(); i++) {
+            for (int j = i+1; j < nodes.size(); j++) {
+                // If you can grab the next gem from the current position
+                if (nodes.get(i).canGrab(nodes.get(j), speedRatio))
+                    //Create the directed path
+                    nodes.get(i).addNode(nodes.get(j));
             }
         }
     }
 
+    public ArrayList<Node> getNodes() {
+        return nodes;
+    }
+
+    public int getNumNodes() { return numNodes; }
+    public double getSpeedRatio() { return speedRatio; }
+
+    @Override
+    public String toString() {
+        return ("Number Of Gems: " + numNodes + "\nSpeed Ratio: " + speedRatio + "\nHeight of Track: " + heightTrack);
+    }
 
 }
