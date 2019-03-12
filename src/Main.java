@@ -84,7 +84,6 @@ public class Main {
             }
             System.out.println();
         }
-        System.out.println("Path List");
 
         //Find Minimum
         int minRow = 0;
@@ -102,19 +101,16 @@ public class Main {
         }
 
         System.out.println("The min is " + min + ". The position is (" + minRow + ", " + minColumn + ")");
-        printResult(distance, next, minRow, minColumn);
-
+        printResult(distance, next, minRow, minColumn, nodes);
     }
 
-    static void printResult(int[][] dist, int[][] next, int minRow, int minColumn) {
+    static void printResult(int[][] dist, int[][] next, int minRow, int minColumn, ArrayList<Node> nodes) {
         int u = minRow + 1;
         int v = minColumn + 1;
-        String path = "";
-        do {
+        while (u != v) {
             u = next[u - 1][v - 1];
-            path +=  u + " -> ";
-        } while (u != v);
-        System.out.println(path);
+            System.out.println(nodes.get(u-1).getX() + " " + nodes.get(u-1).getY() + " " + -nodes.get(u-1).getValue());
+        }
     }
 }
 

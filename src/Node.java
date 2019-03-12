@@ -37,17 +37,10 @@ public class Node implements Comparable<Node>{
         return false;
     }
 
-    public int getValue() {
-        return value;
-    }
+    public int getValue() { return value; }
+    public double getX() { return location.x; }
+    public double getY() { return location.y; }
 
-    public int getMaxValue() {
-        return maxValue;
-    }
-
-    public void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-    }
 
     public ArrayList<Node> getNodeList() {
         return children;
